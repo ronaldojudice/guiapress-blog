@@ -6,12 +6,13 @@ const slugify = require("slugify");
 
 
 router.get("/admin/articles", (req,res)=>{
-
-Article.findAll().then(articles=>{
-  res.render("addmin/artciles/index", {articles:articles})
+Article.findAll({
+  include:[{model:Category}]
+}).then(articles=>{
+res.render("admin/articles/index",{articles:articles})
 });
 
-})
+});
 
 
 router.get("/admin/articles/new", (req,res)=>{
@@ -43,6 +44,56 @@ router.get("/admin/articles/new", (req,res)=>{
 
     res.render("admin/articles/index");
   })
+
+router.get("/admin/articles/edit/:id",(req,res)=>{
+
+  var id = req.params.id;
+
+  if(isNaN(id)){
+    res.render("/admin/articles");
+  }
+
+  Article.findByPK(id).then(article=>{
+
+    if(id!=undefined){
+    res.render("/admin/articles/edit",{article:article});
+  
+  }
+  
+  else{
+    res.redirect("/admin/articles").catch(error =>{
+      res.redirect("/admin/articles");
+    });
+  }
+
+  });
+
+  router.post("/articles/delete",(req,res)=>{
+    var id = req.body.id;
+if(id!= undefined){
+    if(!isNaN(id)){
+    Article.destroy({
+      where: {
+        id:id
+      }
+    }).then(()=>{
+res.redirect("/admin/articles");
+    });
+  }else{
+    res.redirect("/admin/articles");
+  }
+}else{
+  res.redirect("/admin/articles");
+
+}
+
+})
+
+
+
+
+});
+
 
 
 module.exports = router;

@@ -6,7 +6,7 @@
   <hr>
   <h3>Articles</h3>
 
-  <a class="btn btn-success" href="admin/articles/new">Criar um novo Artigo</a>
+  <a class="btn btn-success" href="/admin/articles/new">Criar um novo Artigo</a>
 
 
   <table class="table table-bordered">
@@ -17,22 +17,35 @@
         <th>ID</th>
         <th>Título</th>
         <th>slug</th>
-        <th>Category</th>
+        <th>Categoria</th>
         <th>Ações</th>
       </tr>
   
     </thead>
+    
 
     <tbody>
      
-      <% articles.forEach(article=>{%>
-    <td><%= article.id%></td>
-    <td><%= article.title %></td>
-    <td><%= article.slug %></td>
-    <td><%= article.category %></td>
-        
-        <% }) %>
 
+      <% articles.forEach(article=>{%>
+        <tr>
+<br>
+        <td><%= article.id %></td>
+        <td><%= article.title %></td>
+        <td><%= article.slug%></td>
+        <td><%= article.category.title%></td>
+        <td>Editar
+        
+          <form method="POST" action="/articles/delete" style="display: inline;" onsubmit="confirmarDelecao(event,this)">
+            <input type="hidden" name="id" value="<%= article.id %>"> 
+          <button class="btn btn-danger ">Excluir</button>
+          </form>
+
+
+        </td>
+        <% })%>
+  
+      </tr>
     </tbody>
 
 
@@ -41,3 +54,15 @@
 </div>
 
 <%-include('../../partials/footer.ejs');%>
+
+
+<script>
+function confirmarDelecao(event,this){
+  event.preventDefault();
+  var decision = confirm("Deseja realmente excluir esse Artigo?");
+  if(decision){
+    form.submit();
+  }
+}
+
+</script>

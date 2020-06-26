@@ -1,8 +1,28 @@
-<%-include (./partials/header.ejs);%>
+<%-include ('partials/header.ejs');%>
+<%-include('partials/home-navbar.ejs');%>
 <body>
-  
+  <div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">Bem Vindo ao GuiaPress</h1>
+    <p class="lead">O seu Guia completo para artigos</p>
+    <hr class="my-4">
+   
+  </div>
 
-<%-include(./partials/header.ejs);%>
+  <hr>
+
+  <% articles.forEach(article=>{%>
+    <div class="card">
+    <div class="card-header">
+      <h2><%=article.title%></h2>
+    </div>
+    <div class="card-body">
+      <a href="/<%= article.slug %>" class="btn btn-success">Ler Arigo</a>
+    </div>
+    <br>
+    <%})%>
+</div>
+
 
 </body>
-<%- include ('./partials/footer.ejs');%>
+<%- include ('partials/footer.ejs');%>
