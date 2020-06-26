@@ -1,0 +1,43 @@
+<%-include('../../partials/header.ejs');%>
+
+<%-include('../../partials/navbar.ejs');%>
+
+<div class="container">
+  <hr>
+  <h3>Articles</h3>
+
+  <a class="btn btn-success" href="admin/articles/new">Criar um novo Artigo</a>
+
+
+  <table class="table table-bordered">
+
+    <thead>
+
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>slug</th>
+        <th>Category</th>
+        <th>Ações</th>
+      </tr>
+  
+    </thead>
+
+    <tbody>
+     
+      <% articles.forEach(article=>{%>
+    <td><%= article.id%></td>
+    <td><%= article.title %></td>
+    <td><%= article.slug %></td>
+    <td><%= article.category %></td>
+        
+        <% }) %>
+
+    </tbody>
+
+
+  </table>
+
+</div>
+
+<%-include('../../partials/footer.ejs');%>
